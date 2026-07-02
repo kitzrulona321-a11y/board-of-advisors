@@ -10,8 +10,15 @@ actually gone dark.
 - The script checks the newest file-modified time under `%USERPROFILE%\.claude\projects\`
   (Claude Code session transcripts — a reliable proxy for "last time you showed up").
 - Silent < 48h → logs "on track", does nothing.
-- Silent ≥ 48h → sends your customized `letter.txt` from/to your own Gmail via SMTP.
-- Cooldown: at most one letter per 48h. Everything logs to `watchdog.log`.
+- Silent ≥ 48h → emails you a letter, chosen by a **three-tier fallback** (reliability first):
+  1. **AI-generated** — headless `claude -p` writes today's letter fresh from your `PROFILE.md`
+     and advisor wikis, in your advisors' voices, referencing your real goals and dates. Runs on
+     your existing Claude subscription (no API billing); skipped automatically if the `claude`
+     CLI isn't installed or times out.
+  2. **Rotation** — a random pre-written letter from `letters/*.txt` (falls back to `letter.txt`),
+     so a drift email always goes out even when generation fails.
+  3. **Last resort** — a short built-in message if both tiers fail.
+- Cooldown: at most one letter per 48h. Every send logs its tier to `watchdog.log`.
 
 ## Setup (one time, Windows)
 1. Create a Gmail App Password: Google Account → Security → 2-Step Verification → App passwords.
@@ -32,7 +39,16 @@ actually gone dark.
 - `claude-watchdog.ps1` — check + email logic (`-Force` sends now, for testing)
 - `setup-watchdog.ps1` — credential, letter, scheduled task, test-fire
 - `letter.template.txt` — starting point for your letter (`letter.txt` is gitignored — it's personal)
+- `letters/` — optional: multiple personal letters for rotation (gitignored). Ask Claude to write
+  3–4 variants in your advisors' voices — e.g., a hard-push letter, a gentle letter, a numbers-audit letter
 - `gmail-cred.xml`, `last-sent.txt`, `watchdog.log` — created at runtime, all gitignored
+
+## Roadmap: serverless heartbeat
+The laptop version has one blind spot: if the machine stays off, no letter goes out until next
+boot (it then catches up and intercepts you). The fix is a heartbeat architecture — a local task
+pushes a "last active" timestamp to a private GitHub repo whenever the laptop is on, and a free
+GitHub Actions scheduled workflow checks staleness daily and sends the letter from the cloud,
+reaching your phone even when the laptop sleeps.
 
 ## Uninstall
 `Unregister-ScheduledTask -TaskName ClaudeBoardWatchdog -Confirm:$false` and delete the runtime files.

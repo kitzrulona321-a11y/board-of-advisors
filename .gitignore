@@ -7,5 +7,6 @@
 # Watchdog runtime files — credential, personal letter, state, logs
 watchdog/gmail-cred.xml
 watchdog/letter.txt
+watchdog/letters/
 watchdog/last-sent.txt
 watchdog/watchdog.log

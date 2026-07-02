@@ -95,6 +95,8 @@ The system's real value comes from brutally honest inputs — which is exactly w
 - A re-interview cadence (quarterly diff of the profile: what changed?)
 - Advisor disagreement scoring — track whose advice you followed and what happened
 - ~~Automatic session-gap detection ("you've been quiet for 2+ days" — my own early-warning signal from the interview)~~ **Shipped** → [watchdog/](watchdog/)
+- ~~Fresh letter content per send~~ **Shipped** — three-tier fallback: headless-Claude-generated letter → rotation letters → built-in (see [watchdog/](watchdog/))
+- Serverless heartbeat: local task pushes a "last active" timestamp to a private repo; a free GitHub Actions cron checks staleness and emails from the cloud — so the letter arrives even when the laptop stays off
 - Cross-platform watchdog (currently Windows Task Scheduler; cron/launchd ports welcome)
 
 ## License

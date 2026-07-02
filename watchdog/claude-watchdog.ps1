@@ -38,6 +38,8 @@ function Get-GeneratedLetter([int]$days, [double]$hours) {
     try {
         $job = Start-Job -ScriptBlock {
             param($dir, $p)
+            # claude outputs UTF-8; without this, non-ASCII characters mojibake
+            try { [Console]::OutputEncoding = [System.Text.Encoding]::UTF8 } catch {}
             Set-Location $dir
             & claude -p $p --output-format text 2>$null
         } -ArgumentList $projectDir, $prompt

@@ -28,7 +28,7 @@ Built with [Claude Code](https://claude.com/claude-code) using context engineeri
                         └────────────────────────────────────────┘
 ```
 
-### The five components
+### The six components
 
 1. **Interview protocol** ([docs/interview-protocol.md](docs/interview-protocol.md)) — 10 questions asked one at a time, covering current situation, vision, strengths, blockers, money habits, trusted people, coaching-style preferences, and early warning signs. The back-and-forth matters: follow-ups surface things a form never would.
 2. **Profile file** ([templates/PROFILE.template.md](templates/PROFILE.template.md)) — the interview distilled into a structured document Claude reads before giving any advice. Includes explicit *coaching instructions* ("push me with fear when I need it, be gentle when I'm down, remind me of my goals — I forget").
@@ -37,6 +37,7 @@ Built with [Claude Code](https://claude.com/claude-code) using context engineeri
    - `knowledge/wiki/<person-slug>.md` — a synthesis page: core ideas, vocabulary, stances, recurring stories, a "voice" guide for persona emulation, and a "how this maps to me" section.
 4. **The `/ask-the-board` skill** ([.claude/skills/ask-the-board/SKILL.md](.claude/skills/ask-the-board/SKILL.md)) — loads profile + wikis, renders each advisor's take in their own voice, flags consensus and disagreements, then synthesizes a decisive recommendation with dated next actions. Auto-triggers on any decision-shaped question.
 5. **Integrations** — Claude Code's persistent memory (so every future session knows the system exists) and Google Calendar via MCP (board decisions become dated reminders with the reasoning embedded in the event description).
+6. **The drift watchdog** ([watchdog/](watchdog/)) — the accountability layer. A scheduled PowerShell script checks when Claude Code was last used (session-transcript file mtimes); if you've gone silent past your self-declared warning threshold (48h), it emails you your advisors' get-back-on-track letter via Gmail SMTP. Reminders handle your tasks; this handles your *disappearing* — and it only speaks when you've actually gone dark.
 
 ## Repo structure
 
@@ -51,8 +52,13 @@ board-of-advisors/
 ├── examples/                      # FICTIONAL data — format demos only
 │   ├── PROFILE.example.md
 │   └── knowledge/wiki/lena-cruz.md
-└── .claude/skills/ask-the-board/
-    └── SKILL.md                   # the custom skill (generalized)
+├── .claude/skills/ask-the-board/
+│   └── SKILL.md                   # the custom skill (generalized)
+└── watchdog/                      # drift detection → email via Gmail SMTP
+    ├── claude-watchdog.ps1
+    ├── setup-watchdog.ps1
+    ├── letter.template.txt
+    └── README.md
 ```
 
 ## Quick start
@@ -88,7 +94,8 @@ The system's real value comes from brutally honest inputs — which is exactly w
 
 - A re-interview cadence (quarterly diff of the profile: what changed?)
 - Advisor disagreement scoring — track whose advice you followed and what happened
-- Automatic session-gap detection ("you've been quiet for 2+ days" — my own early-warning signal from the interview)
+- ~~Automatic session-gap detection ("you've been quiet for 2+ days" — my own early-warning signal from the interview)~~ **Shipped** → [watchdog/](watchdog/)
+- Cross-platform watchdog (currently Windows Task Scheduler; cron/launchd ports welcome)
 
 ## License
 

@@ -1,0 +1,29 @@
+Hey,
+
+Your watchdog noticed: no Claude Code activity for about {HOURS} hours.
+You said that {DAYS}+ days of silence is your early-warning sign. So here we are.
+
+--------------------------------------------------
+CUSTOMIZE THIS SECTION: write one short paragraph per advisor, in their
+voice, using their vocabulary from your knowledge/wiki/ pages. Ask Claude:
+"Write my watchdog letter using my board's voices and my PROFILE.md."
+
+ADVISOR 1 (your push-mode advisor):
+"..."
+
+ADVISOR 2 (your discipline/systems advisor):
+"..."
+
+ADVISOR 3 (your gentle-mode advisor):
+"..."
+--------------------------------------------------
+
+THE WAY BACK (do these in order, takes 10 minutes):
+1. Open Claude Code and type: I drifted
+2. Run /ask-the-board with whatever decision or mess is in front of you
+3. Do the smallest version of your daily habit (any amount counts)
+4. Do ONE action toward your 90-day goals before you sleep
+
+Getting back on track IS the win. See you in the session.
+
+- Your Board of Advisors (automated watchdog)

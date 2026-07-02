@@ -3,3 +3,9 @@
 /PROFILE.md
 /CAREER-COACH.md
 /knowledge/
+
+# Watchdog runtime files — credential, personal letter, state, logs
+watchdog/gmail-cred.xml
+watchdog/letter.txt
+watchdog/last-sent.txt
+watchdog/watchdog.log

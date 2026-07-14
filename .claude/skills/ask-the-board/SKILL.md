@@ -17,11 +17,13 @@ If no decision was provided, ask one short question: "What decision do you want 
 
 If a specific claim or number matters to the decision, check the deeper notes in `knowledge/raw/<person-slug>/`.
 
-<!-- CUSTOMIZE: replace with your actual advisors after building their wikis. -->
 Current board roster:
-- **Advisor 1** — `knowledge/wiki/<slug-1>.md` — seat: <what gap they cover>
-- **Advisor 2** — `knowledge/wiki/<slug-2>.md` — seat: <what gap they cover>
-- **Advisor 3** — `knowledge/wiki/<slug-3>.md` — seat: <what gap they cover>
+- **Alex Hormozi** — `knowledge/wiki/alex-hormozi.md` — seat: offers, pricing, and scaling the business
+- **Chinkee Tan** — `knowledge/wiki/chinkee-tan.md` — seat: Filipino money mindset, debt, and frugality
+- **Codie Sanchez** — `knowledge/wiki/codie-sanchez.md` — seat: boring businesses, cash flow, and ownership
+- **Ryan Holiday** — `knowledge/wiki/ryan-holiday.md` — seat: steadiness, emotional regulation, pacing (the counterweight to the hustle seats; designated gentle-mode voice)
+
+Also skim `decisions.md` (repo root) for recent related calls — if this decision echoes a past one, say so and factor in how that one is playing out.
 
 ## Step 2 — Each advisor's take, in their own voice
 
@@ -39,6 +41,10 @@ Speak as their coach, per the "How to Coach Me" section of PROFILE.md:
 - Give a clear recommendation — pick a side where advisors disagree; don't hedge.
 - End with **2–3 concrete next actions with deadlines**, tied to real dates from PROFILE.md.
 - If the decision touches money: show the math and check it against their known leaks and savings milestones.
+
+## Step 5 — Log the decision (accountability)
+
+After delivering the synthesis, append a row to `decisions.md` (repo root): the date, the decision in one line, the recommendation + which advisor led it, "what I did" left as `<pending — user to confirm>`, and a **Review by** date (when the outcome will actually be knowable — tie it to a real date from PROFILE.md). Bump the scoreboard's "logged" count. Keep it to the one row; don't rewrite the file. This is what lets the board later grade its own advice.
 
 ## Output format
 

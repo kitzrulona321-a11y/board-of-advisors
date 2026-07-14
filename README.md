@@ -51,14 +51,19 @@ board-of-advisors/
 │   └── advisor-wiki.template.md   # advisor synthesis page schema
 ├── examples/                      # FICTIONAL data — format demos only
 │   ├── PROFILE.example.md
-│   └── knowledge/wiki/lena-cruz.md
+│   ├── session-output.example.md  # a full /ask-the-board run (proof)
+│   └── knowledge/wiki/
+│       ├── lena-cruz.md           # cash-floor advisor
+│       └── marcus-reyes.md        # premium-pricing counter-voice
 ├── .claude/skills/ask-the-board/
 │   └── SKILL.md                   # the custom skill (generalized)
 └── watchdog/                      # drift detection → email via Gmail SMTP
-    ├── claude-watchdog.ps1
-    ├── setup-watchdog.ps1
-    ├── letter.template.txt
-    └── README.md
+    ├── claude-watchdog.ps1        # Windows: check + email logic
+    ├── setup-watchdog.ps1         # Windows: cred + scheduled task
+    ├── letter.template.txt        # shared letter starting point
+    ├── README.md
+    └── mac/
+        └── claude-watchdog.sh     # macOS port (launchd + Keychain + curl SMTP)
 ```
 
 ## Quick start
@@ -72,15 +77,19 @@ board-of-advisors/
 6. Restart the session and run:
    > `/ask-the-board should I spend this month's budget on X or Y?`
 
-## Example session (fictional data, abridged)
+## Example session
+
+**👉 See a full run:** [`examples/session-output.example.md`](examples/session-output.example.md) — a complete `/ask-the-board` session on fictional data (Maya Santos' retainer decision), showing each advisor in voice, the consensus, the honest clash, and a dated action plan. Abridged taste:
 
 > `/ask-the-board should I take the agency retainer or keep freelancing?`
 >
-> **🎨 Lena says:** "A retainer is a boring business — recurring revenue, one client relationship to manage. Take it, but cap it at 60% of your hours so you're renting out time, not selling all of it…"
+> **🎨 Lena says:** "A retainer is boring money, and boring money pays for brave work. Take it, but cap it at 60% of your hours so you're renting out time, not selling all of it…"
 >
-> **⚔️ Where they clash:** Lena optimizes for cashflow stability; Marcus says retainers cap your upside and you should raise project prices instead…
+> **⚡ Marcus says:** "₱30k for your best hours might be a discount you'll regret. Raise your project minimum *first* — a rate increase is pure margin; a retainer is capped upside…"
 >
-> **🎯 Synthesis:** Take the retainer for 6 months as a cash floor, use the stability to raise your project rates 30%… 1) Reply to the agency by Friday. 2) …
+> **⚔️ Where they clash:** Lena optimizes for cashflow stability; Marcus optimizes for upside. Different risk appetites, not one being wrong.
+>
+> **🎯 Synthesis:** Take the retainer as a capped cash floor *with* Marcus's raise built in from day one — sequence stability then upside. 1) Accept in writing, capped at 60%, by Jan 31. 2) Raise project minimum to ₱25k by Feb 7. 3) …
 
 ## Privacy by design
 
@@ -97,7 +106,7 @@ The system's real value comes from brutally honest inputs — which is exactly w
 - ~~Automatic session-gap detection ("you've been quiet for 2+ days" — my own early-warning signal from the interview)~~ **Shipped** → [watchdog/](watchdog/)
 - ~~Fresh letter content per send~~ **Shipped** — three-tier fallback: headless-Claude-generated letter → rotation letters → built-in (see [watchdog/](watchdog/))
 - Serverless heartbeat: local task pushes a "last active" timestamp to a private repo; a free GitHub Actions cron checks staleness and emails from the cloud — so the letter arrives even when the laptop stays off
-- Cross-platform watchdog (currently Windows Task Scheduler; cron/launchd ports welcome)
+- ~~Cross-platform watchdog (currently Windows Task Scheduler; cron/launchd ports welcome)~~ **macOS port shipped** → [watchdog/mac/](watchdog/mac/) (launchd + Keychain + curl SMTP)
 
 ## License
 

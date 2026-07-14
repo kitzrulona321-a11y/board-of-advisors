@@ -10,3 +10,12 @@ watchdog/letter.txt
 watchdog/letters/
 watchdog/last-sent.txt
 watchdog/watchdog.log
+
+# Watchdog (macOS) runtime files — config, personal letters, state, logs
+watchdog/mac/watchdog.conf
+watchdog/mac/letter.txt
+watchdog/mac/letters/
+watchdog/mac/last-sent.txt
+watchdog/mac/watchdog.log
+watchdog/mac/launchd.out.log
+watchdog/mac/launchd.err.log
